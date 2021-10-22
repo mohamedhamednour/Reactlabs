@@ -1,25 +1,34 @@
-import {Todo} from "./post";
+import { useState} from "react";
+import { ViewPosts } from "./components/ViewPosts";
+import { AddPost } from "./components/AddPost";
 
 export const App = () => {
-  const posts = [
-    { td: "coffe" , ap:'apple' , ma:"mango" , ki:"kiwi" ,or:"orange" },
-    
+  const [posts, setPosts] = useState([]);
+
+ 
+
+  const handleDelete = () => {
+    setPosts([]);
+  };
+
+  const addPost = (newPost) => {
+    setPosts([...posts, newPost]);
    
-  ];
+ };
+
   return (
-    <div>
-      <h1>menu juice</h1>
-
-      {/* <Post title={posts[0].title} body={posts[0].body} />
-      <Post title={posts[1].title} body={posts[1].body} />
-      <Post title={posts[2].title} body={posts[2].body} />
-      <Post title={posts[3].title} body={posts[3].body} /> */}
-
-      {posts.map((p) => (
-        <Todo td={p.td} ap={p.ap} ma={p.ma} ki={p.ki} or={p.or}/>
-      ))}
-
+    <div className="container">
+      <div className="row">
+       <div className="col-6">
+          <AddPost addPost={addPost} />
+  </div>
+        <div className="col-6">
+          <ViewPosts
+            posts={posts}
+            onDelete={handleDelete}
+          />
+        </div>
+      </div>
     </div>
   );
 };
-
